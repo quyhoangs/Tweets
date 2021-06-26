@@ -8,9 +8,14 @@ trait Followable{
         return $this->follows()->save($user);
     }
 
+    public function unfollow(User $user)
+    {
+        return $this->follows()->detach($user);
+    }
+
     public function following(User $user)
     {
-        return $this->follows->contains($user);
+        return $this->follows()->where('following_user_id',$user->id)->exists();
     }
     
     public function follows()
