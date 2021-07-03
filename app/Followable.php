@@ -13,6 +13,16 @@ trait Followable{
         return $this->follows()->detach($user);
     }
 
+    public function toggleFollow(User $user)
+    {
+        if($this->following($user)){
+
+           return $this->unfollow($user);
+       }
+       else{
+           return $this->follow($user);
+       }
+    }
     public function following(User $user)
     {
         return $this->follows()->where('following_user_id',$user->id)->exists();

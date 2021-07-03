@@ -28,26 +28,28 @@
                    </h1>
                 </header>
        </section>
+       
        <section class="px-8">
-                <main  class="container mx-auto">
-                    
-                <div class="lg:flex lg:justify-center">
-                    @auth    
-                    <div class="lg:w-32">
-                        @include('_sidebar-links')
-                    </div>
-                    @endauth
-                    <div class="lg:flex-1 lg:mx-10" style="max-width: 700px;">
-                          @yield('content')
-                    </div>
-                    @auth
-                    <div class="lg:w-1/6 ">
-                        @include('_friend-list')
-                    </div>
-                    @endauth
-                </div>
-                </main>
+                        <main  class="container mx-auto">
+                            
+                        <div class="lg:flex lg:justify-center">
+                            @if(auth()->check()) 
+                            <div class="lg:w-32">
+                                @include('_sidebar-links')
+                            </div>
+                        @endif
+                            <div class="lg:flex-1 lg:mx-10" style="max-width: 700px;">
+                                    @yield('content') 
+                            </div>
+                            @if(auth()->check())
+                            <div class="lg:w-1/6 ">
+                                @include('_friend-list')
+                            </div>
+                            @endif
+                        </div>
+                        </main>
         </section>
+
     </div>
 </body>
 </html>

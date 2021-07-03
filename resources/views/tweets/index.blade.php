@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('components.master')
 @section('content')
             @include('_publish-tweety-panel') 
           
