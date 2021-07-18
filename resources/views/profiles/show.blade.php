@@ -20,16 +20,19 @@
               </div>
 
               <div class="flex">
-
-                <a href="" class="rounded-full border border-gray-300 py-2 px-4  text-xs">Edit Profile</a> 
-
+            <!-- Chỉ hiện thị Edit Khi User đó login  -->
+            @can('edit',$user)
+                <a href="{{$user->path('edit')}}" class="rounded-full border border-gray-300 py-2 px-4  text-xs">Edit Profile</a> 
+            @endcan    
+            <!-- Chỉ hiện thị Follow ở profile bạn bè  -->
+            @unless(current_user()->Is($user))
                 <form action="/profiles/{{$user->name}}/follow" method="post">
                     @csrf
                     <button type="submit" class="bg-blue-500 rounded-full  py-2 px-4 text-white text-xs ml-2">
-                        {{auth()->user()->following($user) ? 'Unfollow Me' : 'Follow me'}}
+                        {{current_user()->following($user) ? 'Unfollow Me' : 'Follow me'}}
                     </button>
-                   
                 </form>
+            @endunless
 
               </div>
            </div>
