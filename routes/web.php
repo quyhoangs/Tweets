@@ -20,6 +20,7 @@ Route::middleware('auth')->group(function(){
     Route::POST('/tweets', 'TweetsController@store');
     
     Route::POST('/profiles/{user}/follow','FollowsController@store');
+    Route::get('/profiles/{user}/edit','ProfilesController@edit')->middleware('can:edit,user');
 });
 
 Route::get('/profiles/{user}','ProfilesController@show')->name('profile');
