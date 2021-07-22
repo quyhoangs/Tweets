@@ -19,11 +19,13 @@ Route::middleware('auth')->group(function(){
     Route::get('/tweets',  'TweetsController@index')->name('home');
     Route::POST('/tweets', 'TweetsController@store');
     
-    Route::POST('/profiles/{user}/follow','FollowsController@store');
-    Route::get('/profiles/{user}/edit','ProfilesController@edit')->middleware('can:edit,user');
+    Route::POST('/profiles/{username}/follow','FollowsController@store');
+    Route::get('/profiles/{username}/edit','ProfilesController@edit'); //->middleware('can:edit,user');
+
+    Route::patch('/profiles/{username}','ProfilesController@update');
 });
 
-Route::get('/profiles/{user}','ProfilesController@show')->name('profile');
+Route::get('/profiles/{username}','ProfilesController@show')->name('profile');
 
 
 Auth::routes(); 
