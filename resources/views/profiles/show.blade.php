@@ -1,7 +1,6 @@
 @extends('components.master')
 @section('content')
        <header class="mb-6 relative">
-          
 
            <div class="relative">
                 <img src="/images/banner.jpg" alt="" class="mb-2 border border-gray-300">
@@ -42,12 +41,9 @@
                I have been a teacher since 2008, and specialize in business writing and IELTS preparation. Before becoming a teacher, 
                I worked as a copyeditor for government agencies in Washington DC and as a ghostwriter for startup founders and independent 
                consultants around the world. In my free time, I enjoy hiking, practicing photography, and exploring the city by bike.</p>
-
-          
-
        </header>
 
         @include('_timeline',[
-          'tweets'=>$user->tweets
+          'tweets'=>$tweets      //$user->tweets
         ])
 @endsection
