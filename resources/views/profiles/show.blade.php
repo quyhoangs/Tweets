@@ -26,7 +26,7 @@
             @endcan    
             <!-- Chỉ hiện thị Follow ở profile bạn bè  -->
             @unless(current_user()->Is($user))
-                <form action="/profiles/{{$user->name}}/follow" method="post">
+                <form action="{{Route('follow',$user->username)}}" method="post">
                     @csrf
                     <button type="submit" class="bg-blue-500 rounded-full  py-2 px-4 text-white text-xs ml-2">
                         {{current_user()->following($user) ? 'Unfollow Me' : 'Follow me'}}

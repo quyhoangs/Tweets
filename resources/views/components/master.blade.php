@@ -37,7 +37,7 @@
                             <div class="lg:w-32">
                                 @include('_sidebar-links')
                             </div>
-                        @endif
+                            @endif
                             <div class="lg:flex-1 lg:mx-10" style="max-width: 700px;">
                                     @yield('content') 
                             </div>
