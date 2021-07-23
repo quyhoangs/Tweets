@@ -11,19 +11,19 @@ class ProfilesController extends Controller
 {   
     public function show(User $user)
     {    
-        $user=auth()->user();
+        // $user=auth()->user();
         // ddd($user->name);
         return view('profiles.show',compact('user'));
     }
     public function edit(User $user)
     {   
-        $user=auth()->user();
+       // $user=auth()->user();
         return view('profiles.edit',compact('user'));
     }
 
     public function update(User $user)
     {   
-        $user=auth()->user(); //Đang có vấn đề với $user trên Model không truyền được id vào đây nên cần khai báo tạm như này
+       // $user=auth()->user(); //Đang có vấn đề với $user trên Model không truyền được id vào đây nên cần khai báo tạm như này
         $attributes = request()->validate([
             'username' => [
                 'string',
@@ -33,7 +33,7 @@ class ProfilesController extends Controller
                 Rule::unique('users')->ignore($user),   // Đảm bảo username là duy nhất so sánh trong bảng user
             ],
             'name' => ['string', 'required', 'max:255'],
-            'avatar' => ['required', 'file'],
+            'avatar' => ['file'],
             'email' => [
                 'string',
                 'required',
@@ -49,8 +49,10 @@ class ProfilesController extends Controller
                 'confirmed',
             ],
         ]);
-
-       $attributes['avatar'] = request('avatar')->store('avatars');
+        //Nếu thay đổi avatar khi edit profile thì sẻ vào đây
+        if(request('avatar')){
+            $attributes['avatar'] = request('avatar')->store('avatars');
+        }
        $attributes['password'] = Hash::make(request('password'));
         $user->update($attributes);
         // ddd($user->avatar);

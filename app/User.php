@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
+use function PHPUnit\Framework\isNull;
+
 class User extends Authenticatable
 {
     use Notifiable,Followable;
@@ -37,14 +39,20 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-
+    //Lấy link avatar trong db 
     public function getAvatarAttribute($value)
-    {
-        return asset('storage/' . $value);
+    {   
+        $img='storage/avatars/avatar-default.png';
+        
+        return asset( $value ?'storage/'.$value: $img);
     }
 
-    
-
+    // Mã hoá mật khẩu khi update user
+    public function setPasswordAtribute($value)
+    {
+        $this->attributes['password']=bcrypt($value);
+    }
+    //Hiển thị bài đăng trong timeline
     public function timeline()
     {   
         $friends=$this->follows()->pluck('id');
@@ -59,12 +67,12 @@ class User extends Authenticatable
         return $this->hasMany(Tweet::class)->latest();
     }
 
-    
+   // Lấy tên URl bao gồm Username
     public function getRouteKeyName()
     {
         return 'username';
     }
-
+    //Xử lý path cho Router
     public function path($append = '')
     {   
         $path = route('profile',$this->username);
