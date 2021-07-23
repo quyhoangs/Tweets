@@ -4,4 +4,5 @@
                   @empty
                      <p class="p-4">Chưa có bài đăng nào</p>   
                   @endforelse
+ {{$tweets->links()}}                  
 </div>

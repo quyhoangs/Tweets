@@ -11,19 +11,18 @@ class ProfilesController extends Controller
 {   
     public function show(User $user)
     {    
-        // $user=auth()->user();
-        // ddd($user->name);
-        return view('profiles.show',compact('user'));
+        return view('profiles.show',[
+            'user'=>$user,
+            'tweets'=>$user->tweets()->paginate(3) 
+        ]);
     }
     public function edit(User $user)
     {   
-       // $user=auth()->user();
         return view('profiles.edit',compact('user'));
     }
 
     public function update(User $user)
     {   
-       // $user=auth()->user(); //Đang có vấn đề với $user trên Model không truyền được id vào đây nên cần khai báo tạm như này
         $attributes = request()->validate([
             'username' => [
                 'string',
